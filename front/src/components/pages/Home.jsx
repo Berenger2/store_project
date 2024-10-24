@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Product from "../partials/Product";
 import "./Home.css";
+import ProductForm from "../partials/ProductForm";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -16,8 +17,18 @@ export default function Home() {
         className="container d-flex justify-content-center align-items-center"
         style={{ minHeight: "100vh" }}
       >
+        <article>
+            <p>
+                Bienvenue sur notre site de vente en ligne. Vous trouverez ici
+                tous les produits dont vous avez besoin.
+            </p>
+        </article>
+    
         <div class="grid">
-        <div>2</div>
+      
+        <div>
+          <ProductForm />
+        </div>
           <div>
             <div className="product-container ext-center">
               <h1>Nos Produits</h1>
