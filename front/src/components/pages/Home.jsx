@@ -6,11 +6,27 @@ import ProductForm from "../partials/ProductForm";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+
+  const deleteProduct = (id) => {
+    const updatedList = products.filter((product) => product.id !== id);
+    setProducts(updatedList); 
+  };
+
+  const editProduct = (id, updatedData) => {
+    const updatedList = products.map((product) =>
+      product.id === id ? { ...product, ...updatedData } : product
+    );
+    setProducts(updatedList);
+  };
+ 
+
   useEffect(() => {
     axios.get("http://localhost:8080/products").then((response) => {
       setProducts(response.data);
     });
   }, []);
+
+  
   return (
     <>
       <div
@@ -34,7 +50,8 @@ export default function Home() {
               <h1>Nos Produits</h1>
               <div className="product-list">
               {products.map((product) => (
-                <Product key={product.id} product={product} />
+                <Product key={product.id} product={product}  deleteProduct={deleteProduct}
+                editProduct={editProduct} />
               ))}
               </div>
             </div>
