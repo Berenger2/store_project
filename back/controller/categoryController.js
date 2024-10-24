@@ -37,15 +37,10 @@ exports.createCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
     try {
-        const category = await Category.findById(req.params.id);
+        const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!category) {
             return res.status(404).json({ message: 'Category not found' });
         }
-
-        category.category = req.body.category || category.category;
-        category.responsable = req.body.responsable || category.responsable;
-
-        const updatedCategory = await category.save();
         res.status(200).json(updatedCategory);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -54,7 +49,7 @@ exports.updateCategory = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
     try {
-        const category = await Category.findById(req.params.id);
+        const category = await Category.findByIdAndDelete(req.params.id);
         if (!category) {
             return res.status(404).json({ message: 'Category not found' });
         }
