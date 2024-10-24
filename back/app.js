@@ -22,7 +22,7 @@ mongoose.connect(`mongodb+srv://${dbUser}:${dbPassword}@cluster0.jl2mp.mongodb.n
   })
 .then(() => console.log('Connexion à MongoDB réussie'))
 .catch(err => console.error('Erreur de connexion à MongoDB', err));
-console.log("Connected to MongoDB");
+
 
 
 
