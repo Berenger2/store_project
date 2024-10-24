@@ -41,13 +41,15 @@ export default function Product({ product, deleteProduct, editProduct }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+        console.log(product);
+        
       const response = await axios.put(`http://localhost:8080/product/${product._id}`, {
         product: editedProduct.product,
         description: editedProduct.description,
         category: editedProduct.category,
       });
 
-      editProduct(product.id, response.data);
+      editProduct(product._id, response.data);
 
       setIsEditMode(false);
       setShowModal(false);
@@ -60,7 +62,8 @@ export default function Product({ product, deleteProduct, editProduct }) {
     <>
       <article className="d-flex justify-content-center align-items-center">
         <header className="pico-background-pink-600">
-          {product.product} || Rayon : {product.category.category}
+        {product.product} || Rayon : {product.category.category}
+        {product.stock === 0 && <span className="text-danger">Produits en rupture de stock</span>}
         </header>
         {product.description}
         <footer>
@@ -128,7 +131,7 @@ export default function Product({ product, deleteProduct, editProduct }) {
                     <input
                       type="text"
                       name="category"
-                      value={editedProduct.category}
+                      value={editedProduct.category._id}
                       onChange={handleInputChange}
                     />
                   </label>
